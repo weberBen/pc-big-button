@@ -5,9 +5,9 @@
 A simple way to interface a button (with an arduino) to a PC with a possibility to execute custom scripts 
 when an event occurs (device plugged/unplugged/ready, button down/up)
 
-!(button)[assets/final_building.jpg]
+![button](assets/final_building.jpg)
 
-!(demo)[assets/demo.gif)
+![demo](assets/demo.gif)
 
 ## Files
 
