@@ -1,0 +1,60 @@
+#!/bin/bash
+
+
+
+BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+EVENTS_DIR="$BASE_DIR/event-scripts"
+HELPERS_SCRIPT="$BASE_DIR/helpers"
+BUTTON_LISTENER=$BASE_DIR/button_listener
+CONF_FILE="$BASE_DIR/conf"
+
+source $CONF_FILE
+source $HELPERS_SCRIPT
+
+#---------------------------------------------------------------------------
+
+DEVICE_PATH=$(getDevice $TARGET_VID $TARGET_PID $TARGET_SERIAL)
+
+#---------------------------------------------------------------------------
+
+
+export BASE_DIR
+export EVENTS_DIR
+export EVENT_SCRIPTS_EXECUTOR
+export HELPERS_SCRIPT
+
+#---------------------------------------------------------------------------
+
+HAS_BEEN_CONNECTED=0
+
+if [[ ! -z $DEVICE_PATH ]]; then
+    HAS_BEEN_CONNECTED=1
+    $BUTTON_LISTENER $DEVICE_PATH
+fi
+
+
+PREV_DEVICE_STATE=
+
+udevadm monitor --udev | 
+while read -r line
+do
+    if [[ $line == *"add"* ]]; then
+        if [[ -z $(isDeviceConnected $DEVICE_PATH) ]]; then
+
+            source $CONF_FILE #update variable (if changed between)
+            
+            DEVICE_PATH=$(getDevice $TARGET_VID $TARGET_PID $TARGET_SERIAL)
+            if [[ ! -z $DEVICE_PATH ]]; then
+                HAS_BEEN_CONNECTED=1
+                executeScriptsInDir  "$EVENTS_DIR/device/added"
+                $BUTTON_LISTENER $DEVICE_PATH
+            fi
+        fi
+    elif [[ $line == *"remove"* ]]; then
+        if (( $HAS_BEEN_CONNECTED==1 )); then
+            HAS_BEEN_CONNECTED=0
+            DEVICE_PATH=
+            executeScriptsInDir  "$EVENTS_DIR/device/removed"
+        fi
+    fi
+done

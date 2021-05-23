@@ -1,0 +1,64 @@
+#!/bin/bash
+
+if [ $EUID != 0 ]; then
+    sudo "$0" "$@"
+    exit $?
+fi
+
+#-------------------------------------------------------------------------
+
+BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+HELPERS_SCRIPT="$BASE_DIR/helpers"
+
+source $HELPERS_SCRIPT
+
+
+read  -n 1 -p "Remove (if needed) the desired usb device and press any key" res
+echo "-> Plug in your device"
+
+DEVICE_PATH=
+LAST_ADD_LINE=
+ADDED=0
+
+
+while read -r line
+do
+    if [[ $line == *"add"* ]]; then
+        ADDED=1
+        LAST_ADD_LINE=$line
+    else
+        if (( $ADDED==1 )); then
+            if [[ -z $LAST_ADD_LINE ]]; then
+                echo "no device dected !"
+                exit -1
+            fi
+
+            DEVICE_PATH="$LAST_ADD_LINE"
+            DEVICE_PATH=$(echo "$DEVICE_PATH" | sed 's/^.*add/add/')
+            DEVICE_PATH=$(echo "$DEVICE_PATH" | tr -s " ")
+
+            i=0
+            for word in $(echo "$DEVICE_PATH");
+            do
+                if (($i==1)); then
+                    DEVICE_PATH="$word"
+                fi
+
+                i=$((i+1))
+            done
+
+            error=$(updateDeviceConf $DEVICE_PATH)
+            if [[ ! -z $error ]]; then
+                echo "An error occurs :"
+                echo "$error"
+                exit -1
+            fi
+
+            echo "Device information has been sucessfully updated"
+            break
+        fi
+    fi
+done < <(udevadm monitor --udev)
+
+echo " "
+read  -n 1 -p "Unplug your device and plug it again then press any key ..." res
