@@ -2,9 +2,9 @@
 
 BASE_DIR_SCRIPT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
-if [[ "$1" == "configure" ]]; then
+if [[ "$1" == "start" ]]; then
     $BASE_DIR_SCRIPT/bigButton_launcher
-if [[ "$1" == "configure" ]]; then
+elif [[ "$1" == "configure" ]]; then
     $BASE_DIR_SCRIPT/configurator
 elif [[ "$1" == "uninstall" ]]; then
     read -n 1 -p "Do you want to uninstall the script ? [y/n] `echo $'\n> '`" resp

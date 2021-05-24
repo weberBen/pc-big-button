@@ -5,14 +5,12 @@
 A simple way to interface a button (with an arduino) to a PC with a possibility to execute custom scripts 
 when an event occurs (device plugged/unplugged/ready, button down/up)
 
-<img src="assets/final_building.jpg" align="center" alt="button" width="250"/>
-
 ![demo](assets/demo.gif)
 
 ## Files
 
-- arduino: for building your own device
-- linux: all the stuff that make up the connexion to the arduino
+- *src/arduino*: for building your own device
+- *src/linux*: connector between linux PC and the arduino
 
 ## About
 

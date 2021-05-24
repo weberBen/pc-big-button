@@ -1,3 +1,5 @@
+<img src="assets/final_building.jpg" align="center" alt="button" width="250"/>
+
 # Parts
 
 - arduino (as small as possible)

@@ -4,6 +4,7 @@ BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 LOG_FILES_DIR="$BASE_DIR/logs"
 UDEV_RULE="/etc/udev/rules.d/99-usb-big-button-arduino-serial.rules"
 UDEV_GROUP="arduino-serial"
+MAIN_LOCKFILE_NAME=".big-button-lockfile"
 
 #-------------------------------------------------------------------------
 

@@ -24,4 +24,4 @@ rm /usr/local/bin/bigbutton
 echo " "
 echo "--------------"
 echo " "
-echo "Uninstallation is done"
+echo "Uninstallation is done ! You need to restart your computer"

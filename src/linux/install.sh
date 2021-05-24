@@ -5,6 +5,7 @@ if [ $EUID != 0 ]; then
     exit $?
 fi
 
+
 #-------------------------------------------------------------------------
 
 BASE_DIR_SCRIPT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
@@ -45,6 +46,8 @@ echo -e "#!/bin/bash \n
 $INSTALL_DIR/$DIR_NAME/bigButton \$@ \n
 " > /usr/local/bin/bigbutton
 chmod +x /usr/local/bin/bigbutton
+
+touch $INSTALL_DIR/$DIR_NAME/$MAIN_LOCKFILE_NAME
 
 $INSTALL_DIR/$DIR_NAME/configurator
 
