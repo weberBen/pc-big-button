@@ -14,4 +14,4 @@ when an event occurs (device plugged/unplugged/ready, button down/up)
 
 ## About
 
-This script is not meant for all the *Adam* on that earth that would describe this project as the *more useless thing they have seen in their entire life*
+That project is not meant for all the *Adam* on that earth that would describe it as *one of the more useless things they have ever seen in their entire life*
