@@ -1,4 +1,4 @@
-<img src="assets/final_building.jpg" align="center" alt="button" width="250"/>
+<img src="/assets/final_building.jpg" align="center" alt="button" width="250"/>
 
 # Parts
 
