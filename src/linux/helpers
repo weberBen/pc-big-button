@@ -23,10 +23,7 @@ function updateDeviceConf()
         return 
     fi
     eval "$(udevadm info -q property --export -p $syspath)"
-    if [[ -z "$ID_SERIAL" ]]; then
-        echo "Unsupported device : missing ID_SERIAL"
-        return 
-    fi
+    
     if [[ -z "$ID_MODEL_ID" ]]; then
         echo "Unsupported device : missing ID_MODEL_ID"
         return 
@@ -72,10 +69,9 @@ function getDevice()
             devname="$(udevadm info -q name -p $syspath)"
             [[ "$devname" == "bus/"* ]] && exit
             eval "$(udevadm info -q property --export -p $syspath)"
-            [[ -z "$ID_SERIAL" ]] && exit
             [[ -z "$ID_VENDOR_ID" ]] && exit
             [[ -z "$ID_MODEL_ID" ]] && exit
-
+            
             [[ "$ID_SERIAL" != "$serial" ]] && exit
             [[ "$ID_VENDOR_ID" != "$vid" ]] && exit
             [[ "$ID_MODEL_ID" != "$pid" ]] && exit

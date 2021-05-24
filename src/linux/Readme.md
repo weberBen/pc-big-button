@@ -10,6 +10,12 @@ the correct location for your OS (for example, with ubuntu and gnome you just ha
 
 # About
 
+## Device identification
+
+The device is identified by the vendor id, the product id and if it has a serial number (which is not the case for all arduino clones) the serial number.
+
+Thus, if you have two same arduino (same manufacturer and model) connected to your computer that do not have a distinct serial number, you will have a problem/a mismatch
+
 ## Serial com
 The installation creates a new group *arduino-serial* for a normal user to read and write to the serial port on which the arduino is connected to.
 And a udev rule is created to add that group to the owners of the device.
