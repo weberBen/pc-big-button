@@ -5,7 +5,7 @@
 A simple way to interface a button (with an arduino) to a PC with a possibility to execute custom scripts 
 when an event occurs (device plugged/unplugged/ready, button down/up)
 
-*wait for demo video to load*
+*wait for [demo video](assets/demo_final.gif) to load*
 
 <img src="assets/demo_final.gif" align="center" alt="demo" width="450"/>
 
